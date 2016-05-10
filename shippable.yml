@@ -1,0 +1,38 @@
+# language setting
+language: node_js
+
+# version numbers, testing against one version of node
+node_js:
+    - 0.12
+
+env:
+    - XUNIT_FILE=../shippable/testresults/result.xml API_PORT=3001
+
+build:
+   pre_ci: 
+       - cd micro-api && docker build -t somenathghoshdocker/micro-api .
+   pre_ci_boot:
+        image_name: somenathghoshdocker/micro-api
+        image_tag: latest
+        pull: false
+
+   ci:
+       - mkdir -p ../shippable/testresults
+       - mkdir -p ../shippable/codecoverage       
+       - cd micro-api
+       - npm install 
+       - grunt
+   on_success:
+       - cd ..
+       - cd micro-www && docker build -t somenathghoshdocker/micro-www .
+       - docker tag -f somenathghoshdocker/micro-www:latest somenathghoshdocker/micro-www:$BRANCH.$BUILD_NUMBER 
+       - docker tag -f somenathghoshdocker/micro-api:latest somenathghoshdocker/micro-api:$BRANCH.$BUILD_NUMBER
+       - docker push somenathghoshdocker/micro-api:$BRANCH.$BUILD_NUMBER
+       - docker push somenathghoshdocker/micro-www:$BRANCH.$BUILD_NUMBER
+
+integrations:
+    hub:
+        - integrationName: docker-hub
+          type: docker
+
+
