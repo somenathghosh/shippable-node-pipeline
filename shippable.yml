@@ -6,7 +6,7 @@ node_js:
     - 0.12
 
 env:
-    - XUNIT_FILE=../shippable/testresults/result.xml API_PORT=31861
+    - XUNIT_FILE=../shippable/testresults/result.xml API_PORT=3001
 
 
 build:
