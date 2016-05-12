@@ -5,6 +5,14 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var winston = require('winston');
 var app = express();
+var Client = require('node-rest-client').Client;
+ 
+var client = new Client();
+
+var info_url= process.env.API_URL + '/info';
+
+console.log(info_url);
+client.registerMethod("infoUrl", info_url, "GET");
 
 global.logger = winston;
 app.use(bodyParser.json());
@@ -17,11 +25,16 @@ if (process.env.SHUD_LOG_TO_FILE) {
 logger.remove(winston.transports.Console);
 logger.add(winston.transports.Console,
   {level: process.env.LOG_LEVEL || 'debug'});
-
+app.set('view engine', 'ejs'); 
+app.set('views', __dirname, '/public/views');
 app.get('/',
   function (req, res) {
     logger.info('Main page');
-    res.sendFile(path.resolve('./public/views/home.html'));
+    client.methods.infoUrl(function (data, response) {
+       console.log(data);
+       //console.log(response);
+       res.render('./public/views/home',{message:data});
+    });
   }
 );
 

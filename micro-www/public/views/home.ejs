@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="micro-www">
+<head>
+  <link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://css-spinners.com/css/spinner/three-quarters.css" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>micro-www</title>
+</head>
+
+<body >
+<div class="container">
+  <div class="masthead">
+    <h1 class="text-muted">WWW micro service</h1>
+  </div>
+
+  <div class="jumbotron">
+    <h3>API micro service - Status</h3>
+
+    <div >
+      <div class="alert alert-success text-center">Successfully Shippable CI/CD of micro services and deployed to GKE Clusters </div>
+
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">Response from: API </h3>
+        </div>
+        <div class="panel-body">
+
+          <p>API Time: <%=  message.time %></p>
+
+          <p>API Message: <%= message.message %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site footer -->
+  <footer class="footer">
+    <p>&copy; Somenath Ghosh 2015</p>
+  </footer>
+</div>
+</body>
+</html>
